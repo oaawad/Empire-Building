@@ -9,7 +9,7 @@ public class City {
     private String name; // The name of the city
     private ArrayList<EconomicBuilding> economicBuilding; // : An ArrayList containing the economical buildings inside the city
     private ArrayList<MilitaryBuilding> militaryBuilding; // : An ArrayList containing the military buildings inside the city
-    private Army defendingArmy; // The defending army of the city
+    private Army defendingArmy = new Army(name); // The defending army of the city
     private int turnsUnderSiege; // Number of turns the city has been sieged
     private boolean underSiege = false; // checking if the city is under siege or not
 

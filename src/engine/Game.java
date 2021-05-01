@@ -1,6 +1,10 @@
 package engine;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 public class Game {
     // A class representing the game
@@ -12,6 +16,7 @@ public class Game {
 
     // Constructors
     public Game(String playerName, String playerCity) throws IOException{
+       this.player = new Player(playerName);
        
     }
 
