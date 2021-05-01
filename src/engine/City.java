@@ -13,7 +13,7 @@ public class City {
     private int turnsUnderSiege; // Number of turns the city has been sieged
     private boolean underSiege = false; // checking if the city is under siege or not
 
-    // Constructors 
+    // Constructors  
     public City(String name){
         this.name = name;
     }
