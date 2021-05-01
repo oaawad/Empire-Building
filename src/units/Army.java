@@ -13,13 +13,11 @@ public class Army {
     private final int maxToHold = 10; // The maximum number of units a unit can hold.
     
     // Construtors 
-
     public Army(String currentLocation){
         this.currentLocation = currentLocation;
     }
 
     // Setters & getters
-
     public Status getCurrentStatus() {
         return this.currentStatus;
     }
