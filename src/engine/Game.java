@@ -13,20 +13,25 @@ public class Game {
     // A class representing the game
     private Player player; // The current player of the game
     private ArrayList<City> availableCities; // An ArrayList containing the cities in the game
-    private ArrayList<Distance> distances; // an Arraylist containing the distance between the cities
-    private final int maxTurnCount = 30; // masimum number of turns in the Game
-    private int currentTurnCount = 1; // Current numbe of turns
+    private ArrayList<Distance> distances; // An ArrayList containing the distance between the cities
+    private final int maxTurnCount = 30; // Maximum number of turns in the Game
+    private int currentTurnCount = 1; // Current number of turns
 
     // Constructors
     public Game(String playerName, String playerCity) throws IOException{
        this.player = new Player(playerName);
-       this.player.getControlledCities().add(new City(playerCity));
-       this.availableCities = new ArrayList<>();
-       this.distances = new ArrayList<>();
+       this.availableCities = new ArrayList<City>();
+       this.distances = new ArrayList<Distance>();
        loadCitiesAndDistances();
 
     //   Initializing the defending armies  
      
+       for(int i = 0; i<availableCities.size(); i++) {
+       		if(playerCity.equals(availableCities.get(i).getName())) {
+       			availableCities.get(i).setDefendingArmy(null);
+       			this.player.getControlledCities().add(availableCities.get(i));
+       		}
+       }
        switch(playerCity){
             case "Cairo":
                 loadArmy("Rome","rome_army.csv");
@@ -48,7 +53,7 @@ public class Game {
     public void loadArmy(String cityName,String path) throws IOException{
    
 		String str = "";
-		Army a = new Army(cityName);
+		Army defendingArmy = new Army(cityName);
 		FileReader fileReader= new FileReader(path);
 		BufferedReader br = new BufferedReader(fileReader);
 		while ((str = br.readLine()) != null) {
@@ -57,26 +62,26 @@ public class Game {
             	case "Archer":
             		switch(result[1]) {
             			case "1":
-            				a.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
+            				defendingArmy.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
             				break;
             			case "2":
-            				a.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
+            				defendingArmy.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
             				break;
             			case "3":
-            				a.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
+            				defendingArmy.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
             				break;	
             		}
             		break;
             	case "Infantry":
             		switch(result[1]) {
         			case "1":
-        				a.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
+        				defendingArmy.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
         				break;
         			case "2":
-        				a.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
+        				defendingArmy.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
         				break;
         			case "3":
-        				a.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
+        				defendingArmy.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
         				break;	
             		}
         		
@@ -84,13 +89,13 @@ public class Game {
             	case "Cavalry":
             		switch(result[1]) {
         			case "1":
-        				a.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
+        				defendingArmy.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
         				break;
         			case "2":
-        				a.getUnits().add(new Cavalry(2,40,0.6,0.6,0.75));
+        				defendingArmy.getUnits().add(new Cavalry(2,40,0.6,0.7,0.75));
         				break;
         			case "3":
-        				a.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
+        				defendingArmy.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
         				break;	
             		}
         		
@@ -99,7 +104,7 @@ public class Game {
 		
         for(int i = 0 ; i<availableCities.size(); i++ ) {
         	if (cityName.equals(availableCities.get(i).getName()))
-        		availableCities.get(i).setDefendingArmy(a);
+        		availableCities.get(i).setDefendingArmy(defendingArmy);
         }
     	br.close();
     	
@@ -156,5 +161,9 @@ public class Game {
     public void setCurrentTurnCount(int currentTurnCount) {
         this.currentTurnCount = currentTurnCount;
     }
-   
+   public static void main(String[] args) throws IOException {
+	   Game g = new Game("Omar","Rome");
+	   System.out.println(g.getPlayer().getControlledCities().get(0).getName());
+	
+   }
 }

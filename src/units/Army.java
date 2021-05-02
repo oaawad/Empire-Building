@@ -16,7 +16,7 @@ public class Army {
     // Constructors 
     public Army(String currentLocation){
         this.currentLocation = currentLocation;
-        this.units = new ArrayList<>();
+        this.units = new ArrayList<Unit>(maxToHold);
     }
 
     // Setters & getters
