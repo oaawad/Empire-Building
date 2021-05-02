@@ -15,6 +15,7 @@ public class Army {
     // Construtors 
     public Army(String currentLocation){
         this.currentLocation = currentLocation;
+        this.units = new ArrayList<>();
     }
 
     // Setters & getters

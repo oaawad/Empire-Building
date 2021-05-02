@@ -16,6 +16,8 @@ public class Player {
     // Constructors
     public Player(String name){
         this.name = name;
+        this.controlledCities = new ArrayList<>();
+        this.controlledArmies = new ArrayList<>();
     }
 
     // Setters & Getters
