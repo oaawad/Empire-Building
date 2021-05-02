@@ -95,6 +95,10 @@ public class Game {
             		
                 		break;
                 }
+                for(int i = 0 ; i<availableCities.size(); i++ ) {
+                	if (cityName.equals(availableCities.get(i).getName()))
+                		availableCities.get(i).setDefendingArmy(a);
+                }
             }
         }catch (IOException e) {
             e.printStackTrace();
@@ -158,7 +162,7 @@ public class Game {
    
     public static void main(String[] args) throws IOException{
         Game g = new Game("omar", "Cairo");
-        System.out.println(g.availableCities.size());
+        System.out.println(g.availableCities.get(1).getName());
     }
 
 }
