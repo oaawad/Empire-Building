@@ -2,7 +2,6 @@ package buildings;
 
 public class Building {
 //A class representing a building
-	// this is a tes comment 
 	
 	private int cost; // The cost for creating a building
 	private int level; // The current level of the building, All buildings start from level 1
