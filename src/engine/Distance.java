@@ -22,7 +22,7 @@ public class Distance {
         return this.to;
     }
 
-    public int getDist() {
+    public int getDistance() {
         return this.distance;
     }
 

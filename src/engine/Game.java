@@ -29,87 +29,86 @@ public class Game {
      
        switch(playerCity){
             case "Cairo":
-                loadArmy("Roma","rome_army.csv");
+                loadArmy("Rome","rome_army.csv");
                 loadArmy("Sparta","sparta_army.csv");
                 break;
             
-            case "Roma":
+            case "Rome":
                 loadArmy("Cairo","cairo_army.csv");
                 loadArmy("Sparta","sparta_army.csv");
                 break;
         
             case "Sparta":
-                loadArmy("Roma","rome_army.csv");
+                loadArmy("Rome","rome_army.csv");
                 loadArmy("Cairo","cairo_army.csv");
                 break;
-            default:
        }
     }
 
     public void loadArmy(String cityName,String path) throws IOException{
-    	String str = "";
-    	Army a = new Army(cityName);
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            while ((str = br.readLine()) != null) {
-                String[] result = str.split(",");
-                switch(result[0]) {
-                	case "Archer":
-                		switch(result[1]) {
-                			case "1":
-                				a.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
-                				break;
-                			case "2":
-                				a.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
-                				break;
-                			case "3":
-                				a.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
-                				break;	
-                		}
-                		break;
-                	case "Infantry":
-                		switch(result[1]) {
+   
+		String str = "";
+		Army a = new Army(cityName);
+		FileReader fileReader= new FileReader(path);
+		BufferedReader br = new BufferedReader(fileReader);
+		while ((str = br.readLine()) != null) {
+            String[] result = str.split(","); 
+            switch(result[0]) {
+            	case "Archer":
+            		switch(result[1]) {
             			case "1":
-            				a.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
+            				a.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
             				break;
             			case "2":
-            				a.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
+            				a.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
             				break;
             			case "3":
-            				a.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
+            				a.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
             				break;	
-                		}
-            		
-                		break;
-                	case "Cavalry":
-                		switch(result[1]) {
-            			case "1":
-            				a.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
-            				break;
-            			case "2":
-            				a.getUnits().add(new Cavalry(2,40,0.6,0.6,0.75));
-            				break;
-            			case "3":
-            				a.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
-            				break;	
-                		}
-            		
-                		break;
-                }
-                for(int i = 0 ; i<availableCities.size(); i++ ) {
-                	if (cityName.equals(availableCities.get(i).getName()))
-                		availableCities.get(i).setDefendingArmy(a);
-                }
-            }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }    
-    	
-    	
+            		}
+            		break;
+            	case "Infantry":
+            		switch(result[1]) {
+        			case "1":
+        				a.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
+        				break;
+        			case "2":
+        				a.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
+        				break;
+        			case "3":
+        				a.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
+        				break;	
+            		}
+        		
+            		break;
+            	case "Cavalry":
+            		switch(result[1]) {
+        			case "1":
+        				a.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
+        				break;
+        			case "2":
+        				a.getUnits().add(new Cavalry(2,40,0.6,0.6,0.75));
+        				break;
+        			case "3":
+        				a.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
+        				break;	
+            		}
+        		
+            		break;
+            }}    	
+		
+        for(int i = 0 ; i<availableCities.size(); i++ ) {
+        	if (cityName.equals(availableCities.get(i).getName()))
+        		availableCities.get(i).setDefendingArmy(a);
+        }
+    	br.close();
     	
     }
-    private void loadCitiesAndDistances() throws IOException{
+    
+    public void loadCitiesAndDistances() throws IOException{
         String str = "";
-        try (BufferedReader br = new BufferedReader(new FileReader("distances.csv"))) {
+        FileReader fileReader= new FileReader("distances.csv");
+		BufferedReader br = new BufferedReader(fileReader);
             while ((str = br.readLine()) != null) {
                 String[] result = str.split(",");
                 distances.add(new Distance(result[0], result[1], Integer.parseInt(result[2])));
@@ -126,9 +125,7 @@ public class Game {
                         availableCities.add(new City(result[i]));
                 }
             }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+     br.close();   
     }  
 
     // Setters & Getters 
@@ -160,9 +157,4 @@ public class Game {
         this.currentTurnCount = currentTurnCount;
     }
    
-    public static void main(String[] args) throws IOException{
-        Game g = new Game("omar", "Cairo");
-        System.out.println(g.availableCities.get(1).getName());
-    }
-
 }

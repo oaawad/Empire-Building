@@ -1,6 +1,6 @@
 package buildings;
 
-public class Building {
+public abstract class Building {
 //A class representing a building
 	
 	private int cost; // The cost for creating a building

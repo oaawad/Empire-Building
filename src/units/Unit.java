@@ -4,16 +4,16 @@ public abstract class Unit {
     // A class representing a unit
     
     private int level; // The current level of a unit
-    private int maxSolidierCount; // The maximum number of soldiers a unit can hold.
-    private int currentSoliderCount; // The current number of soldiersinside a unit.
+    private int maxSoldierCount; // The maximum number of soldiers a unit can hold.
+    private int currentSoldierCount; // The current number of soldiers inside a unit.
     private double idleUpkeep; // The amount of food a unit will consume when being idle.
     private double marchingUpkeep; // The amount of food a unit will consume when marching to another city.
     private double siegeUpkeep; // The amount of food a unit will consume when laying siege
 
     // Constructors 
-    public Unit(int level,int maxSolidierCount,double idleUpkeep, double marchingUpkeep,double siegeUpkeep){
+    public Unit(int level,int maxSoldierCount,double idleUpkeep, double marchingUpkeep,double siegeUpkeep){
         this.level = level;
-        this.maxSolidierCount = maxSolidierCount; // el variable dah kan fe typo fel milestone description khly balk w enta b test.
+        this.maxSoldierCount = maxSoldierCount; // el variable dah kan fe typo fel milestone description khly balk w enta b test.
         this.idleUpkeep = idleUpkeep;
         this.marchingUpkeep = marchingUpkeep;
         this.siegeUpkeep = siegeUpkeep;
@@ -24,16 +24,16 @@ public abstract class Unit {
         return this.level;
     }
 
-    public int getMaxSolidierCount() {
-        return this.maxSolidierCount;
+    public int getMaxSoldierCount() {
+        return this.maxSoldierCount;
     }
 
-    public int getCurrentSoliderCount() {
-        return this.currentSoliderCount;
+    public int getCurrentSoldierCount() {
+        return this.currentSoldierCount;
     }
 
-    public void setCurrentSoliderCount(int currentSoliderCount) {
-        this.currentSoliderCount = currentSoliderCount;
+    public void setCurrentSoldierCount(int currentSoldierCount) {
+        this.currentSoldierCount = currentSoldierCount;
     }
 
     public double getIdleUpkeep() {

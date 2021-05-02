@@ -7,8 +7,8 @@ public class City {
     // A class representing a city.
 
     private String name; // The name of the city
-    private ArrayList<EconomicBuilding> economicBuilding; // : An ArrayList containing the economical buildings inside the city
-    private ArrayList<MilitaryBuilding> militaryBuilding; // : An ArrayList containing the military buildings inside the city
+    private ArrayList<EconomicBuilding> economicalBuildings; // : An ArrayList containing the economical buildings inside the city
+    private ArrayList<MilitaryBuilding> militaryBuildings; // : An ArrayList containing the military buildings inside the city
     private Army defendingArmy = new Army(name); // The defending army of the city
     private int turnsUnderSiege; // Number of turns the city has been sieged
     private boolean underSiege = false; // checking if the city is under siege or not
@@ -23,12 +23,12 @@ public class City {
         return this.name;
     }
 
-    public ArrayList<EconomicBuilding> getEconomicBuilding() {
-        return this.economicBuilding;
+    public ArrayList<EconomicBuilding> getEconomicalBuildings() {
+        return this.economicalBuildings;
     }
 
-    public ArrayList<MilitaryBuilding> getMilitaryBuilding() {
-        return this.militaryBuilding;
+    public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
+        return this.militaryBuildings;
     }
     
     public Army getDefendingArmy() {
