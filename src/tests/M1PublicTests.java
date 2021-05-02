@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -1645,6 +1644,7 @@ public class M1PublicTests {
 					expectedType, varType);
 		}
 
+		@SuppressWarnings("deprecation")
 		private void testInstanceVariableIsPrivate(Class aClass, String varName)
 				throws NoSuchFieldException, SecurityException {
 			Field f = aClass.getDeclaredField(varName);
