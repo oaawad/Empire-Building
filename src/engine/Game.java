@@ -1,6 +1,10 @@
 package engine;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
+import units.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -22,28 +26,83 @@ public class Game {
        loadCitiesAndDistances();
 
     //   Initializing the defending armies  
-    //   switch(playerCity){
-    //        case Cairo:
-    //            loadArmy(Roma);
-    //            loadArmy(Sparta);
-    //            break;
-    //        
-    //        case Roma:
-    //            loadArmy(Cairo);
-    //            loadArmy(Sparta);
-    //            break;
-    //    
-    //        case Sparta:
-    //            loadArmy(Cairo);
-    //            loadArmy(Roma);
-    //            break;
-    //        default;    
-    //   }
+     
+       switch(playerCity){
+            case "Cairo":
+                loadArmy("Roma","rome_army.csv");
+                loadArmy("Sparta","sparta_army.csv");
+                break;
+            
+            case "Roma":
+                loadArmy("Cairo","cairo_army.csv");
+                loadArmy("Sparta","sparta_army.csv");
+                break;
+        
+            case "Sparta":
+                loadArmy("Roma","rome_army.csv");
+                loadArmy("Cairo","cairo_army.csv");
+                break;
+            default:
+       }
     }
 
-    //public void loadArmy(String cityName,String path) throws IOException{
-//
-    //}
+    public void loadArmy(String cityName,String path) throws IOException{
+    	String str = "";
+    	Army a = new Army(cityName);
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            while ((str = br.readLine()) != null) {
+                String[] result = str.split(",");
+                switch(result[0]) {
+                	case "Archer":
+                		switch(result[1]) {
+                			case "1":
+                				a.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
+                				break;
+                			case "2":
+                				a.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
+                				break;
+                			case "3":
+                				a.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
+                				break;	
+                		}
+                		break;
+                	case "Infantry":
+                		switch(result[1]) {
+            			case "1":
+            				a.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
+            				break;
+            			case "2":
+            				a.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
+            				break;
+            			case "3":
+            				a.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
+            				break;	
+                		}
+            		
+                		break;
+                	case "Cavalry":
+                		switch(result[1]) {
+            			case "1":
+            				a.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
+            				break;
+            			case "2":
+            				a.getUnits().add(new Cavalry(2,40,0.6,0.6,0.75));
+            				break;
+            			case "3":
+            				a.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
+            				break;	
+                		}
+            		
+                		break;
+                }
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }    
+    	
+    	
+    	
+    }
     private void loadCitiesAndDistances() throws IOException{
         String str = "";
         try (BufferedReader br = new BufferedReader(new FileReader("distances.csv"))) {
