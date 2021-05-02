@@ -2,6 +2,7 @@ package units;
 
 import java.util.ArrayList;
 
+
 public class Army {
     // A class representing the player army.
 
@@ -12,7 +13,7 @@ public class Army {
     private String currentLocation; // The current location of the army. The army can be either in a city or on road to another one.
     private final int maxToHold = 10; // The maximum number of units a unit can hold.
     
-    // Construtors 
+    // Constructors 
     public Army(String currentLocation){
         this.currentLocation = currentLocation;
         this.units = new ArrayList<>();

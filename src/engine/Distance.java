@@ -4,13 +4,13 @@ public class Distance {
     // A class representing the distance between two cities.
     private String from;
     private String to;
-    private int dist; // naming the variable "distance" causes an error because it's the same of the class.
+    private int distance; // naming the variable "distance" causes an error because it's the same of the class.
 
     // Constructors 
     public Distance(String from, String to, int dist){
         this.from = from;
         this.to = to;
-        this.dist = dist;
+        this.distance = dist;
     }
     
     // Setters & Getters 
@@ -23,7 +23,7 @@ public class Distance {
     }
 
     public int getDist() {
-        return this.dist;
+        return this.distance;
     }
 
 }

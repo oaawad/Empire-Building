@@ -1,6 +1,6 @@
 package units;
 
-public class Unit {
+public abstract class Unit {
     // A class representing a unit
     
     private int level; // The current level of a unit

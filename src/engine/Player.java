@@ -1,7 +1,6 @@
 package engine;
 
 import java.util.ArrayList;
-
 import units.Army;
 
 public class Player {

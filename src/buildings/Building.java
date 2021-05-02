@@ -4,9 +4,9 @@ public class Building {
 //A class representing a building
 	
 	private int cost; // The cost for creating a building
-	private int level; // The current level of the building, All buildings start from level 1
+	private int level = 1; // The current level of the building, All buildings start from level 1
 	private int upgradeCost; // The cost for upgrading building's level
-	private boolean coolDown; // A variable stating if the building is cooling down.
+	private boolean coolDown = true; // A variable stating if the building is cooling down.
 	
 	public int getCost() {
 		return cost;
