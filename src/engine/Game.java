@@ -1,12 +1,6 @@
 package engine;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
-
-import javax.swing.JPopupMenu.Separator;
-
-import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -27,7 +21,7 @@ public class Game {
        this.distances = new ArrayList<>();
        loadCitiesAndDistances();
 
-    //   // intiallizing the defeanding armies  
+    //   Initializing the defending armies  
     //   switch(playerCity){
     //        case Cairo:
     //            loadArmy(Roma);
@@ -55,18 +49,18 @@ public class Game {
         try (BufferedReader br = new BufferedReader(new FileReader("distances.csv"))) {
             while ((str = br.readLine()) != null) {
                 String[] result = str.split(",");
-                distances.add(new Distance(result[0], result[1], result[2]));
-                    for(int i = 0; i < 2; i++){
-                        boolean flag = false;
-                        for(int j = 0; j < availableCities.size(); j++){
-                            if(result[i] == availableCities.get(j).getName()){
-                                flag = true;
-                                break;
-                            }       
-                        }
-                        if(!flag)
-                            availableCities.add(new City(result[i]));
+                distances.add(new Distance(result[0], result[1], Integer.parseInt(result[2])));
+                    
+                for(int i = 0; i < 2; i++){
+                    boolean flag = false;
+                    for(int j = 0; j < availableCities.size(); j++){
+                        if(result[i].equals(availableCities.get(j).getName())){
+                            flag = true;
+                            break;
+                        }       
                     }
+                    if(!flag)
+                        availableCities.add(new City(result[i]));
                 }
             }
         }catch (IOException e) {
@@ -104,8 +98,8 @@ public class Game {
     }
    
     public static void main(String[] args) throws IOException{
-        Game g = new Game(omar, Cairo);
-        System.out.println(g.availableCities.get(0).toString());
+        Game g = new Game("omar", "Cairo");
+        System.out.println(g.availableCities.size());
     }
 
 }
