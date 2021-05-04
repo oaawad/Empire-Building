@@ -16,6 +16,8 @@ public class City {
     // Constructors  
     public City(String name){
         this.name = name;
+        this.economicalBuildings = new ArrayList<EconomicBuilding>();
+        this.militaryBuildings = new ArrayList<MilitaryBuilding>();
     }
 
     // Setters & Getters 
@@ -54,5 +56,4 @@ public class City {
     public void setUnderSiege(boolean underSiege) {
         this.underSiege = underSiege;
     }
-
 }

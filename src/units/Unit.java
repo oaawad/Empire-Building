@@ -13,7 +13,7 @@ public abstract class Unit {
     // Constructors 
     public Unit(int level,int maxSoldierCount,double idleUpkeep, double marchingUpkeep,double siegeUpkeep){
         this.level = level;
-        this.maxSoldierCount = maxSoldierCount; // el variable dah kan fe typo fel milestone description khly balk w enta b test.
+        this.maxSoldierCount = maxSoldierCount; 
         this.idleUpkeep = idleUpkeep;
         this.marchingUpkeep = marchingUpkeep;
         this.siegeUpkeep = siegeUpkeep;
@@ -47,5 +47,4 @@ public abstract class Unit {
     public double getSiegeUpkeep() {
         return this.siegeUpkeep;
     }
-
 }

@@ -1,7 +1,5 @@
 package units;
-
 import java.util.ArrayList;
-
 
 public class Army {
     // A class representing the player army.
@@ -63,5 +61,4 @@ public class Army {
     public int getMaxToHold() {
         return maxToHold;
     }
-
 }

@@ -9,5 +9,4 @@ public abstract class BuildingException extends EmpireException {
 	public BuildingException(String s) {
 		super(s);
 	}
-	
 }

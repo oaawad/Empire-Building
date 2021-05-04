@@ -9,5 +9,4 @@ public class TargetNotReachedException extends ArmyException {
 	public TargetNotReachedException(String s) {
 		super(s);
 	}
-	
 }

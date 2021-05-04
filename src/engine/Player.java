@@ -47,5 +47,4 @@ public class Player {
     public void setFood(double food) {
         this.food = food;
     }
-
-    }
+}
