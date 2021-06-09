@@ -1,9 +1,8 @@
 package units;
 
 public class Cavalry extends Unit {
-    //  A subclass of Unit representing Cavalries.
 
-    public Cavalry(int level, int maxSoldierCount, double idleUpkeep, double marchingUpkeep, double siegeUpkeep){
-        super(level, maxSoldierCount, idleUpkeep, marchingUpkeep, siegeUpkeep);
-    }
+	public Cavalry(int level, int maxSoldierConunt, double idleUpkeep, double marchingUpkeep, double siegeUpkeep) {
+		super(level, maxSoldierConunt, idleUpkeep, marchingUpkeep, siegeUpkeep);
+	}
 }

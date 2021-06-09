@@ -1,161 +1,184 @@
 package engine;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import units.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import buildings.*;
+import units.Archer;
+import units.Army;
+import units.Cavalry;
+import units.Infantry;
+import units.Unit;
 
 public class Game {
-    // A class representing the game
-    
-	private Player player; // The current player of the game
-    private ArrayList<City> availableCities; // An ArrayList containing the cities in the game
-    private ArrayList<Distance> distances; // An ArrayList containing the distance between the cities
-    private final int maxTurnCount = 30; // Maximum number of turns in the Game
-    private int currentTurnCount = 1; // Current number of turns
+	private Player player;
+	private ArrayList<City> availableCities;
+	private ArrayList<Distance> distances;
+	private final int maxTurnCount = 30;
+	private int currentTurnCount;
 
-    // Constructors
-    public Game(String playerName, String playerCity) throws IOException{
-       this.player = new Player(playerName);
-       this.availableCities = new ArrayList<City>();
-       this.distances = new ArrayList<Distance>();
-       loadCitiesAndDistances();
-       //Initializing the defending armies  
-       for(int i = 0; i<availableCities.size(); i++) {
-       		if(playerCity.equals(availableCities.get(i).getName())) {
-       			availableCities.get(i).setDefendingArmy(null);
-       			this.player.getControlledCities().add(availableCities.get(i));
-       		}
-       }
-       switch(playerCity){
-            case "Cairo":
-                loadArmy("Rome","rome_army.csv");
-                loadArmy("Sparta","sparta_army.csv");
-                break;
-            
-            case "Rome":
-                loadArmy("Cairo","cairo_army.csv");
-                loadArmy("Sparta","sparta_army.csv");
-                break;
-        
-            case "Sparta":
-                loadArmy("Rome","rome_army.csv");
-                loadArmy("Cairo","cairo_army.csv");
-                break;
-       }
-    }
+	public Game(String playerName, String playerCity) throws IOException {
 
-    //Methods
-    public void loadArmy(String cityName,String path) throws IOException{
-		String str = "";
-		Army defendingArmy = new Army(cityName);
-		FileReader fileReader= new FileReader(path);
-		BufferedReader br = new BufferedReader(fileReader);
-		while ((str = br.readLine()) != null) {
-            String[] result = str.split(","); 
-            switch(result[0]) {
-            	case "Archer":
-            		switch(result[1]) {
-            			case "1":
-            				defendingArmy.getUnits().add(new Archer(1,60,0.4,0.5,0.6));
-            				break;
-            			case "2":
-            				defendingArmy.getUnits().add(new Archer(2,60,0.4,0.5,0.6));
-            				break;
-            			case "3":
-            				defendingArmy.getUnits().add(new Archer(3,70,0.5,0.6,0.7));
-            				break;	
-            		}
-            		break;
-            	case "Infantry":
-            		switch(result[1]) {
-        			case "1":
-        				defendingArmy.getUnits().add(new Infantry(1,50,0.5,0.6,0.7));
-        				break;
-        			case "2":
-        				defendingArmy.getUnits().add(new Infantry(2,50,0.5,0.6,0.7));
-        				break;
-        			case "3":
-        				defendingArmy.getUnits().add(new Infantry(3,60,0.6,0.7,0.8));
-        				break;	
-            		}
-        		
-            		break;
-            	case "Cavalry":
-            		switch(result[1]) {
-        			case "1":
-        				defendingArmy.getUnits().add(new Cavalry(1,40,0.6,0.7,0.75));
-        				break;
-        			case "2":
-        				defendingArmy.getUnits().add(new Cavalry(2,40,0.6,0.7,0.75));
-        				break;
-        			case "3":
-        				defendingArmy.getUnits().add(new Cavalry(3,60,0.7,0.8,0.9));
-        				break;	
-            		}
-        		
-            		break;
-            }}    	
+		player = new Player(playerName);
+		availableCities = new ArrayList<City>();
+		distances = new ArrayList<Distance>();
+		currentTurnCount = 1;
+		loadCitiesAndDistances();
+		for (City c : availableCities) {
+			if (c.getName().equals(playerCity))
+
+				player.getControlledCities().add(c);
+
+			else
+				loadArmy(c.getName(), c.getName().toLowerCase() + "_army.csv");
+
+		}
+	}
+
+	private void loadCitiesAndDistances() throws IOException {
+
+		BufferedReader br = new BufferedReader(new FileReader("distances.csv"));
+		String currentLine = br.readLine();
+		ArrayList<String> names = new ArrayList<String>();
+
+		while (currentLine != null) {
+
+			String[] content = currentLine.split(",");
+			if (!names.contains(content[0])) {
+				availableCities.add(new City(content[0]));
+				names.add(content[0]);
+			} else if (!names.contains(content[1])) {
+				availableCities.add(new City(content[1]));
+				names.add(content[1]);
+			}
+			distances.add(new Distance(content[0], content[1], Integer.parseInt(content[2])));
+			currentLine = br.readLine();
+
+		}
+		br.close();
+	}
+
+	public void loadArmy(String cityName, String path) throws IOException {
+
+		BufferedReader br = new BufferedReader(new FileReader(path));
+		String currentLine = br.readLine();
+		Army resultArmy = new Army(cityName);
+		while (currentLine != null) {
+			String[] content = currentLine.split(",");
+			String unitType = content[0].toLowerCase();
+			int unitLevel = Integer.parseInt(content[1]);
+			Unit u = null;
+			if (unitType.equals("archer")) {
+
+				if (unitLevel == 1)
+					u = (new Archer(1, 60, 0.4, 0.5, 0.6));
+
+				else if (unitLevel == 2)
+					u = (new Archer(2, 60, 0.4, 0.5, 0.6));
+				else
+					u = (new Archer(3, 70, 0.5, 0.6, 0.7));
+			} else if (unitType.equals("infantry")) {
+				if (unitLevel == 1)
+					u = (new Infantry(1, 50, 0.5, 0.6, 0.7));
+
+				else if (unitLevel == 2)
+					u = (new Infantry(2, 50, 0.5, 0.6, 0.7));
+				else
+					u = (new Infantry(3, 60, 0.6, 0.7, 0.8));
+			} else if (unitType.equals("cavalry")) {
+				if (unitLevel == 1)
+					u = (new Cavalry(1, 40, 0.6, 0.7, 0.75));
+
+				else if (unitLevel == 2)
+					u = (new Cavalry(2, 40, 0.6, 0.7, 0.75));
+				else
+					u = (new Cavalry(3, 60, 0.7, 0.8, 0.9));
+			}
+			resultArmy.getUnits().add(u);
+			currentLine = br.readLine();
+		}
+		br.close();
 		
-        for(int i = 0 ; i<availableCities.size(); i++ ) {
-        	if (cityName.equals(availableCities.get(i).getName()))
-        		availableCities.get(i).setDefendingArmy(defendingArmy);
-        }
-    	br.close();	
-    }
-    
-    public void loadCitiesAndDistances() throws IOException{
-        String str = "";
-        FileReader fileReader= new FileReader("distances.csv");
-		BufferedReader br = new BufferedReader(fileReader);
-            while ((str = br.readLine()) != null) {
-                String[] result = str.split(",");
-                distances.add(new Distance(result[0], result[1], Integer.parseInt(result[2])));
-                    
-                for(int i = 0; i < 2; i++){
-                    boolean flag = false;
-                    for(int j = 0; j < availableCities.size(); j++){
-                        if(result[i].equals(availableCities.get(j).getName())){
-                            flag = true;
-                            break;
-                        }       
-                    }
-                    if(!flag)
-                        availableCities.add(new City(result[i]));
-                }
-            }
-     br.close();   
-    }  
+		for (City c : availableCities) {
+			if (c.getName().toLowerCase().equals(cityName.toLowerCase())) {
+				c.setDefendingArmy(resultArmy);
+				for(Unit u :c.getDefendingArmy().getUnits())
+					u.setParentArmy(c.getDefendingArmy());
+			}	
+		}			
+	}
+	// MS2
+	public void endTurn() {
+		this.currentTurnCount++;
+		for (City c : this.player.getControlledCities()) {
+			for(EconomicBuilding b : c.getEconomicalBuildings()) {
+				b.setCoolDown(true);
+				this.player.setTreasury(player.getTreasury()+b.harvest());
+				int foodNeeded = 0;
+				
+				for (Army A :player.getControlledArmies()) {
+					if (player.getFood() == 0) {
+						for (Unit u : A.getUnits()) {
+							int reduced = u.getCurrentSoldierCount()/10;
+							u.setCurrentSoldierCount(u.getCurrentSoldierCount()-reduced);
+						}
+					}
+					if (!A.getTarget().equals("")) {
+						if (A.getDistancetoTarget() > 0 )
+							A.setDistancetoTarget(A.getDistancetoTarget()-1);
+					}
+						else {
+							// to be updated.
+						}
+					foodNeeded += A.foodNeeded();
+				}
+				
+			}
+			for(MilitaryBuilding b : c.getMilitaryBuildings()) {
+				b.setCoolDown(true);
+				b.setCurrentRecruit(0);
+			}
+		}
+		for (City c : this.availableCities) {
+			if (c.isUnderSiege()) {
+				c.setTurnsUnderSiege(c.getTurnsUnderSiege()-1);
+				for (Unit u : c.getDefendingArmy().getUnits()) {
+					int reduced = u.getCurrentSoldierCount()/10;
+					u.setCurrentSoldierCount(u.getCurrentSoldierCount()-reduced);
+				}
+			}
+				
+		}
+	}
+	
+	public ArrayList<City> getAvailableCities() {
+		return availableCities;
+	}
 
-    // Setters & Getters 
-    public Player getPlayer() {
-        return this.player;
-    }
+	public ArrayList<Distance> getDistances() {
+		return distances;
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+	public int getCurrentTurnCount() {
+		return currentTurnCount;
+	}
 
-    public ArrayList<City> getAvailableCities() {
-        return this.availableCities;
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public ArrayList<Distance> getDistances() {
-        return this.distances;
-    }
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-    public final int getMaxTurnCount() {
-        return maxTurnCount;
-    }
+	public int getMaxTurnCount() {
+		return maxTurnCount;
+	}
 
-    public int getCurrentTurnCount() {
-        return this.currentTurnCount;
-    }
-
-    public void setCurrentTurnCount(int currentTurnCount) {
-        this.currentTurnCount = currentTurnCount;
-    }
+	public void setCurrentTurnCount(int currentTurnCount) {
+		this.currentTurnCount = currentTurnCount;
+	}
 
 }

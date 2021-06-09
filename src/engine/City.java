@@ -1,59 +1,61 @@
 package engine;
+
 import java.util.ArrayList;
-import buildings.*;
+
+import buildings.EconomicBuilding;
+import buildings.MilitaryBuilding;
 import units.Army;
 
 public class City {
-    // A class representing a city.
+	private String name;
+	private ArrayList<EconomicBuilding> economicalBuildings;
+	private ArrayList<MilitaryBuilding> militaryBuildings;
+	private Army defendingArmy;
+	private int turnsUnderSiege;
+	private boolean underSiege;
 
-    private String name; // The name of the city
-    private ArrayList<EconomicBuilding> economicalBuildings; // : An ArrayList containing the economical buildings inside the city
-    private ArrayList<MilitaryBuilding> militaryBuildings; // : An ArrayList containing the military buildings inside the city
-    private Army defendingArmy = new Army(name); // The defending army of the city
-    private int turnsUnderSiege; // Number of turns the city has been sieged
-    private boolean underSiege = false; // checking if the city is under siege or not
+	public City(String name) {
+		this.name = name;
+		economicalBuildings = new ArrayList<EconomicBuilding>();
+		militaryBuildings = new ArrayList<MilitaryBuilding>();
+		defendingArmy = new Army(name);
+		turnsUnderSiege = -1;
+	}
 
-    // Constructors  
-    public City(String name){
-        this.name = name;
-        this.economicalBuildings = new ArrayList<EconomicBuilding>();
-        this.militaryBuildings = new ArrayList<MilitaryBuilding>();
-    }
+	public ArrayList<EconomicBuilding> getEconomicalBuildings() {
+		return economicalBuildings;
+	}
 
-    // Setters & Getters 
-    public String getName() {
-        return this.name;
-    }
+	public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
+		return militaryBuildings;
+	}
 
-    public ArrayList<EconomicBuilding> getEconomicalBuildings() {
-        return this.economicalBuildings;
-    }
+	public Army getDefendingArmy() {
+		return defendingArmy;
+	}
 
-    public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
-        return this.militaryBuildings;
-    }
-    
-    public Army getDefendingArmy() {
-        return this.defendingArmy;
-    }
+	public void setDefendingArmy(Army defendingArmy) {
+		this.defendingArmy = defendingArmy;
+	}
 
-    public void setDefendingArmy(Army defendingArmy) {
-        this.defendingArmy = defendingArmy;
-    }
+	public int getTurnsUnderSiege() {
+		return turnsUnderSiege;
+	}
 
-    public int getTurnsUnderSiege() {
-        return this.turnsUnderSiege;
-    }
+	public void setTurnsUnderSiege(int turnsUnderSiege) {
+		this.turnsUnderSiege = turnsUnderSiege;
+	}
 
-    public void setTurnsUnderSiege(int turnsUnderSiege) {
-        this.turnsUnderSiege = turnsUnderSiege;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public boolean isUnderSiege() {
-        return this.underSiege;
-    }
+	public boolean isUnderSiege() {
+		return underSiege;
+	}
 
-    public void setUnderSiege(boolean underSiege) {
-        this.underSiege = underSiege;
-    }
+	public void setUnderSiege(boolean underSiege) {
+		this.underSiege = underSiege;
+	}
+
 }

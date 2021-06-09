@@ -1,20 +1,22 @@
 package buildings;
+import exceptions.*;
 
 public abstract class Building {
-	//A class representing a building
-	
-	private int cost; // The cost for creating a building
-	private int level = 1; // The current level of the building, All buildings start from level 1
-	private int upgradeCost; // The cost for upgrading building's level
-	private boolean coolDown = true; // A variable stating if the building is cooling down.
-	
-	//Constructors
+
+	private int cost;
+	private int level;
+	private int upgradeCost;
+	private boolean coolDown;
+
 	public Building(int cost, int upgradeCost) {
 		this.cost = cost;
 		this.upgradeCost = upgradeCost;
+		this.level = 1;
+		coolDown = true;
 	}
-	
-	// Setters & Getters
+	// could be changed later 
+	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{}
+
 	public int getCost() {
 		return cost;
 	}
@@ -39,7 +41,8 @@ public abstract class Building {
 		return coolDown;
 	}
 
-	public void setCoolDown(boolean coolDown) {
-		this.coolDown = coolDown;
+	public void setCoolDown(boolean inCooldown) {
+		this.coolDown = inCooldown;
 	}
+
 }

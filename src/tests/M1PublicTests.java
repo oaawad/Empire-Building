@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -1601,7 +1602,7 @@ public class M1PublicTests {
 		
 		
 	}
-	@Test(timeout = 800)
+	@Test//(timeout = 800)
 	public void testGameConstructorWithCityRome() throws Exception {
 		Class[] inputs = {String.class, String.class};
 		testConstructorExists(Class.forName(gamePath), inputs);
@@ -1644,13 +1645,13 @@ public class M1PublicTests {
 					expectedType, varType);
 		}
 
-		@SuppressWarnings("deprecation")
 		private void testInstanceVariableIsPrivate(Class aClass, String varName)
 				throws NoSuchFieldException, SecurityException {
 			Field f = aClass.getDeclaredField(varName);
 			assertEquals("The \"" + varName + "\" instance variable in class " + aClass.getSimpleName()
 					+ " should not be accessed outside that class.", false, f.isAccessible());
 		}
+		
 
 		private void testInstanceVariableIsFinal(Class aClass, String varName)
 				throws NoSuchFieldException, SecurityException {
