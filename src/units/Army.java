@@ -89,4 +89,9 @@ public class Army{
 		return maxToHold;
 	}
 	
+	public void handleAttackedUnit(Unit u) {
+		if((u.getCurrentSoldierCount()==0)) 
+			this.getUnits().remove(u);
+		}
+	
 }
