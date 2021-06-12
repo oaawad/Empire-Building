@@ -10,6 +10,7 @@ import units.Archer;
 import units.Army;
 import units.Cavalry;
 import units.Infantry;
+import units.Status;
 import units.Unit;
 
 public class Game {
@@ -151,6 +152,35 @@ public class Game {
 			}
 				
 		}
+	}
+	
+	public void targetCity(Army army, String targetName) {
+		if(army.getCurrentStatus()==Status.MARCHING) {}
+		else {
+			for(Distance x:this.getDistances()) {
+				if((army.getCurrentLocation()==x.getFrom()&&targetName==x.getTo())||(army.getCurrentLocation()==x.getTo()&& targetName==x.getFrom())) {
+					army.setDistancetoTarget(x.getDistance());
+					army.setTarget(targetName);
+				}
+			}
+		}
+			
+	}
+	
+	public void occupy(Army a,String cityName) {
+		for(City x: this.getAvailableCities()) {
+			if(x.getName()==cityName) {
+				getPlayer().getControlledCities().add(x);
+				for(Unit u : x.getDefendingArmy().getUnits()) {
+					a.getUnits().add(u);
+				}
+				x.setDefendingArmy(a);
+				x.setTurnsUnderSiege(-1);
+				x.setUnderSiege(false);
+				
+			}
+		}
+		
 	}
 	
 	public ArrayList<City> getAvailableCities() {
