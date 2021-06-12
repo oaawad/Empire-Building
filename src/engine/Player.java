@@ -20,12 +20,14 @@ public class Player {
 	private double treasury;
 	private double food;
 
+	//Constructor
 	public Player(String name) {
 		this.name = name;
 		this.controlledCities = new ArrayList<City>();
 		this.controlledArmies = new ArrayList<Army>();
 	}
 	
+	// Methods
 	public void build(String type,String cityName) throws NotEnoughGoldException{
 		City c = null;
 		for(City c2 : this.controlledCities) {
@@ -114,7 +116,6 @@ public class Player {
 								break;
 		}
 	}
-	
 	public void initiateArmy(City city,Unit unit) {
 		Army A = new Army(city.getName());
 		A.getUnits().add(unit);
@@ -122,40 +123,9 @@ public class Player {
 		unit.setParentArmy(A);
 		this.controlledArmies.add(A);
 	}
-	
-	public double getTreasury() {
-		return treasury;
-	}
-
-	public void setTreasury(double treasury) {
-		this.treasury = treasury;
-	}
-
-	public double getFood() {
-		return food;
-	}
-
-	public void setFood(double food) {
-		this.food = food;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public ArrayList<City> getControlledCities() {
-		return controlledCities;
-	}
-
-	public ArrayList<Army> getControlledArmies() {
-		return controlledArmies;
-	}
-	
 	public void recruitUnit(String type,String cityName) throws BuildingInCoolDownException, MaxRecruitedException, NotEnoughGoldException{
-		
 		for(City x : this.getControlledCities()) {
-			
-			if(x.getName() == cityName) {
+			if(x.getName().equals(cityName)) {
 				
 				switch(type) {
 					
@@ -173,6 +143,7 @@ public class Player {
 						Unit A =b.recruit();
 						this.setTreasury(this.getTreasury()-b.getRecruitmentCost());
 						x.getDefendingArmy().getUnits().add(A);
+						A.setParentArmy(x.getDefendingArmy());
 						break;
 					}
 					
@@ -193,6 +164,7 @@ public class Player {
 						Unit A =b.recruit();
 						this.setTreasury(this.getTreasury()-b.getRecruitmentCost());
 						x.getDefendingArmy().getUnits().add(A);
+						A.setParentArmy(x.getDefendingArmy());
 						break;
 					}
 					
@@ -213,6 +185,7 @@ public class Player {
 						Unit A =b.recruit();
 						this.setTreasury(this.getTreasury()-b.getRecruitmentCost());
 						x.getDefendingArmy().getUnits().add(A);
+						A.setParentArmy(x.getDefendingArmy());
 						break;
 					}
 				}
@@ -226,7 +199,6 @@ public class Player {
 				
 			}
 		}
-	
 	public void upgradeBuilding(Building b) throws NotEnoughGoldException,BuildingInCoolDownException, MaxLevelException {
 		
 		if(this.getTreasury()<b.getUpgradeCost())
@@ -235,13 +207,12 @@ public class Player {
 			throw new BuildingInCoolDownException("Building is in cool down");
 		if(b.getLevel()==3)
 			throw new MaxLevelException("Max level reached");
-		b.upgrade();
 		this.setTreasury((this.getTreasury()-b.getUpgradeCost()));
+		b.upgrade();
 	}
-	
 	public void laySiege(Army army,City city) throws TargetNotReachedException,FriendlyCityException{
 		
-		if(army.getDistancetoTarget()>0)
+		if(army.getDistancetoTarget() != 0)
 			throw new TargetNotReachedException("Target not reached");
 		for(City x :this.getControlledCities()) {
 			if(x.equals(city))
@@ -253,30 +224,29 @@ public class Player {
 		
 	}
 	
-		
-		public static void main(String[]args) {
-			City c = new City("Cairo");
-			ArcheryRange a = new ArcheryRange();
-			c.getMilitaryBuildings().add(a);
-			Player ibra = new Player("Ibra");
-			ibra.getControlledCities().add(c);
-			ibra.setTreasury(90000.0);
-			a.setCoolDown(false);
-			try {
-				try {
-					ibra.upgradeBuilding(a);
-					System.out.print(ibra.getTreasury());
-				} catch (MaxLevelException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} catch (BuildingInCoolDownException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotEnoughGoldException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	// Setters & Getters
+	public double getTreasury() {
+		return treasury;
 	}
+	public void setTreasury(double treasury) {
+		this.treasury = treasury;
+	}
+	public double getFood() {
+		return food;
+	}
+	public void setFood(double food) {
+		this.food = food;
+	}
+	public String getName() {
+		return name;
+	}
+	public ArrayList<City> getControlledCities() {
+		return controlledCities;
+	}
+	public ArrayList<Army> getControlledArmies() {
+		return controlledArmies;
+	}
+	
+	
+}
 

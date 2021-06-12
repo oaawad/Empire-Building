@@ -1,15 +1,15 @@
 package buildings;
 
-import exceptions.BuildingInCoolDownException;
-import exceptions.MaxLevelException;
+import exceptions.*;
 
 public class Market extends EconomicBuilding {
 
+	//A Market is an EconomicBuilding with 1500 cost and 700 upgradeCost.
+	
 	public Market() {
 		super(1500, 700);
 	}
 
-	// could be changed later 
 	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{
 		if (this.isCoolDown())
 			throw new BuildingInCoolDownException("This building is currently in cool down");
@@ -24,6 +24,7 @@ public class Market extends EconomicBuilding {
 		}
 		this.setCoolDown(true); 
 	}
+	
 	public  int harvest() {
 		if (this.getLevel() == 1)
 			return 1000;

@@ -4,19 +4,16 @@ import java.util.ArrayList;
 
 import exceptions.MaxCapacityException;
 
-/**
- * @author mohammad.hussein
- *
- */
+
 public class Army{
 	private Status currentStatus;
 	private ArrayList<Unit> units;
 	private int distancetoTarget;
 	private String target;
 	private String currentLocation;
-	@SuppressWarnings("unused")
 	private final int maxToHold=10;
 
+	//Methods
 	public Army(String currentLocation) {
 		this.currentLocation=currentLocation;
 		currentStatus=Status.IDLE;
@@ -33,7 +30,10 @@ public class Army{
 		else
 			throw new MaxCapacityException("This Army has reached the maximum capacity of units");
 	}
-	
+	public void handleAttackedUnit(Unit u) {
+		if((u.getCurrentSoldierCount()==0)) 
+			this.getUnits().remove(u);
+		}
 	public double foodNeeded() {
 		double neededFood = 0;
 		if (this.currentStatus.equals(Status.IDLE)) {
@@ -50,26 +50,23 @@ public class Army{
 		}
 		return neededFood;
 	}
+	
+	//Setters & Getters
 	public Status getCurrentStatus() {
 		return currentStatus;
 	}
-
 	public void setCurrentStatus(Status currentStatus) {
 		this.currentStatus = currentStatus;
 	}
-
 	public ArrayList<Unit> getUnits() {
 		return units;
 	}
-
 	public void setUnits(ArrayList<Unit> units) {
 		this.units = units;
 	}
-
 	public int getDistancetoTarget() {
 		return distancetoTarget;
 	}
-
 	public void setDistancetoTarget(int distancetoTarget) {
 		this.distancetoTarget = distancetoTarget;
 	}
@@ -89,9 +86,5 @@ public class Army{
 		return maxToHold;
 	}
 	
-	public void handleAttackedUnit(Unit u) {
-		if((u.getCurrentSoldierCount()==0)) 
-			this.getUnits().remove(u);
-		}
 	
 }

@@ -1,14 +1,15 @@
 package buildings;
 
-import exceptions.BuildingInCoolDownException;
-import exceptions.MaxLevelException;
+import exceptions.*;
 
 public class Farm extends EconomicBuilding {
 
+	//A farm is an EconomicBuilding with 1000 cost and 500 upgradeCost.
+	
 	public Farm() {
 		super(1000, 500);
 	}
-	// could be changed later 
+	
 	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{
 		if (this.isCoolDown())
 			throw new BuildingInCoolDownException("This building is currently in cool down");
@@ -32,5 +33,4 @@ public class Farm extends EconomicBuilding {
 		else
 			return 1000;
 	}
-	
 }

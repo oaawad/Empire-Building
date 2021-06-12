@@ -14,6 +14,7 @@ public class City {
 	private int turnsUnderSiege;
 	private boolean underSiege;
 
+	//Constructor
 	public City(String name) {
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();
@@ -21,39 +22,32 @@ public class City {
 		defendingArmy = new Army(name);
 		turnsUnderSiege = -1;
 	}
-
+	
+	//Setters & Getters
 	public ArrayList<EconomicBuilding> getEconomicalBuildings() {
 		return economicalBuildings;
 	}
-
 	public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
 		return militaryBuildings;
 	}
-
 	public Army getDefendingArmy() {
 		return defendingArmy;
 	}
-
 	public void setDefendingArmy(Army defendingArmy) {
 		this.defendingArmy = defendingArmy;
 	}
-
 	public int getTurnsUnderSiege() {
 		return turnsUnderSiege;
 	}
-
 	public void setTurnsUnderSiege(int turnsUnderSiege) {
 		this.turnsUnderSiege = turnsUnderSiege;
 	}
-
 	public String getName() {
 		return this.name;
 	}
-
 	public boolean isUnderSiege() {
 		return underSiege;
 	}
-
 	public void setUnderSiege(boolean underSiege) {
 		this.underSiege = underSiege;
 	}

@@ -7,5 +7,4 @@ public abstract class EconomicBuilding extends Building {
 	}
 	
 	public abstract int harvest();
-
 }

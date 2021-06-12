@@ -1,7 +1,5 @@
 package units;
 import exceptions.FriendlyFireException;
-import java.util.*;
-
 
 public abstract class Unit {
 	private int level;
@@ -136,7 +134,7 @@ public abstract class Unit {
 			 }
 		 }
 			 
-		 if(this instanceof Infantry)
+		 else if(this instanceof Infantry)
 		 {
 			 switch(this.getLevel()) {
 			 
@@ -208,7 +206,7 @@ public abstract class Unit {
 			  
 			 }
 		 }
-		 if(this instanceof Cavalry)
+		 else
 		 {
 			 switch(this.getLevel()) {
 			 
@@ -286,23 +284,4 @@ public abstract class Unit {
 		 	 
   }
 	 
-	 public static void main(String[] args) {
-		 Infantry i = new Infantry(1,50,0.4,0.3,0.2);
-		 Archer ar = new Archer(1,50,0.4,0.3,0.2);
-		 Cavalry c = new Cavalry(1,50,0.4,0.3,0.2);
-		 ArrayList<Unit> l = new ArrayList<Unit>();
-		 Army a = new Army("adasdas");
-		 Army b = new Army("gdfgdfg");
-		 
-		 i.setParentArmy(a);
-		 ar.setParentArmy(b);
-		 try {
-			i.attack(ar);
-			System.out.println(ar.getCurrentSoldierCount());
-		} catch (FriendlyFireException e) {
-			// TODO Auto-generated catch block
-			
-		}
-		 
-	 }
 }	 
