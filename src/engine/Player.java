@@ -23,6 +23,7 @@ public class Player {
 	//Constructor
 	public Player(String name) {
 		this.name = name;
+		this.treasury = 5000;
 		this.controlledCities = new ArrayList<City>();
 		this.controlledArmies = new ArrayList<Army>();
 	}
